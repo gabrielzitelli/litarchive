@@ -4,14 +4,30 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My PWA Book Tracker</title>
-  <!-- Link to the manifest -->
   <link rel="manifest" href="manifest.json" />
-  <!-- Add some basic styles -->
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <h1>Welcome to My Book Tracker</h1>
   <p>Start adding your books here!</p>
-  <script src="script.js"></script>
+  
+  <!-- Form to Add a New Book -->
+  <form id="book-form">
+    <input type="text" id="name" placeholder="Book Name" required />
+    <input type="text" id="author" placeholder="Author" required />
+    <input type="text" id="genres" placeholder="Genres (comma-separated)" />
+    <input type="date" id="published" placeholder="Published Date" />
+    <input type="date" id="finished" placeholder="Finished Read Date" />
+    <input type="text" id="series" placeholder="Series (if any)" />
+    <button type="submit">Add Book</button>
+  </form>
+
+  <!-- Container to Display the List of Books -->
+  <h2>Book List</h2>
+  <button id="refresh">Refresh</button>
+  <div id="book-list"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
+  <script src="database.js"></script>
 </body>
 </html>

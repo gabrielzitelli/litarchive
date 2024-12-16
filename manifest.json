@@ -4,6 +4,7 @@
   "description": "A simple PWA to track the books you've read and want to read.",
   "start_url": "./index.html",
   "display": "standalone",
+  "display_override": ["window-controls-overlay"],
   "background_color": "#ffffff",
   "theme_color": "#000000",
   "orientation": "portrait",
