@@ -2,28 +2,28 @@
   "short_name": "BookTracker",
   "name": "My PWA Book Tracker",
   "description": "A simple PWA to track the books you've read and want to read.",
-  "start_url": "/book-tracking/index.html",
-  "icons": [
-    {
-      "src": "/book-tracking/icons/book-144.png",
-      "sizes": "144x144",
-      "type": "image/png"
-    },
-    {
-      "src": "/book-tracking/icons/book-192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "/book-tracking/icons/book-512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
-  ],
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#000000",
   "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icons/book-144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/book-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/book-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
   "screenshots": [
     {
       "src": "screenshots/screenshot-desktop.png",
