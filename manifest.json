@@ -2,6 +2,7 @@
   "short_name": "BookTracker",
   "name": "My PWA Book Tracker",
   "description": "A simple PWA to track the books you've read and want to read.",
+  "start_url": "/book-tracking/index.html",
   "icons": [
     {
       "src": "/book-tracking/icons/book-144.png",
@@ -19,7 +20,6 @@
       "type": "image/png"
     }
   ],
-  "start_url": "/index.html",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#000000",
