@@ -6,6 +6,7 @@
   <title>My PWA Book Tracker</title>
   <link rel="manifest" href="manifest.json" />
   <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
 </head>
 <body>
   <h1>Welcome to My Book Tracker</h1>
@@ -15,7 +16,7 @@
   <form id="book-form">
     <input type="text" id="name" placeholder="Book Name" required />
     <input type="text" id="author" placeholder="Author" required />
-    <input type="text" id="genres" placeholder="Genres (comma-separated)" />
+    <input type="text" id="genres" placeholder="Genres (comma-separated)" required />
     <input type="date" id="published" placeholder="Published Date" />
     <input type="date" id="finished" placeholder="Finished Read Date" />
     <input type="text" id="series" placeholder="Series (if any)" />
@@ -28,6 +29,7 @@
   <div id="book-list"></div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
-  <script src="database.js"></script>
+  <script src="script.js" type="module"></script>
+  <script src="database.js" type="module"></script>
 </body>
 </html>
