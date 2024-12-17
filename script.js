@@ -1,4 +1,5 @@
 import * as Database from './database.js';
+import * as Export from './exportManager.js';
 
 export async function renderBooks() {
     const bookList = document.getElementById("book-list");
@@ -85,3 +86,69 @@ document.getElementById("book-form").addEventListener("submit", async (event) =>
 
 // Event listener for refreshing the book list
 document.getElementById("refresh").addEventListener("click", renderBooks);
+
+/* - - - - - - - - - - - - - - - - - - *
+ *   Export and import functionality   *
+ * - - - - - - - - - - - - - - - - - - */
+
+async function exportData(exporter) {
+    const db = await Database.loadDatabase();
+    const books = Database.getBooks(db);
+    if (books.length === 0) {
+        alert("No data to export");
+        return;
+    }
+
+    const data = books.map(row => {
+        const [id, name, author, genres, published, finished, series] = row;
+        return { id, name, author, genres, published, finished, series };
+    });
+
+    const exportedData = exporter.export(data);
+    const blob = new Blob([exportedData], { type: exporter.getType() });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = `book-tracker-backup.${exporter.getExtension()}`;
+    link.click();
+}
+
+document.getElementById("export-json").addEventListener("click", () => exportData(new Export.JSONExporter()));
+document.getElementById("export-csv").addEventListener("click", () => exportData(new Export.CSVExporter()));
+
+async function importData(file) {
+    const extension = file.name.split(".").pop();
+    let importer;
+    switch (extension) {
+        case "json":
+            importer = new Export.JSONExporter();
+            break;
+        case "csv":
+            importer = new Export.CSVExporter();
+            break;
+        default:
+            alert("Invalid file format");
+            return;
+    }
+
+    const data = await file.text();
+    const db = await Database.loadDatabase();
+    const books = importer.import(data);
+    if (books.length === 0) {
+        return;
+    }
+
+    books.forEach(book => Database.addBook(db, book));
+    alert("Data imported successfully!");
+    renderBooks();
+}
+
+document.getElementById("file-input").addEventListener("change", async (event) => {
+    const file = event.target.files[0];
+    if (!file) {
+        alert("No file selected");
+        return;
+    }
+
+    importData(file);
+    renderBooks();
+});
