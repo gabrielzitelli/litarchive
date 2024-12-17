@@ -27,6 +27,8 @@ function addBook(db, book) {
         INSERT INTO books (name, author, genres, published, finished, series)
         VALUES (?, ?, ?, ?, ?, ?);
     `, [name, author, genres, published, finished, series]);
+
+    saveDatabase(db);
 }
 
 function getBooks(db) {
@@ -34,11 +36,10 @@ function getBooks(db) {
     return books[0] ? books[0].values : [];
 }
 
-async function renderBooks() {
+async function renderBooks(db) {
     const bookList = document.getElementById("book-list");
     bookList.innerHTML = "";
 
-    const db = await loadDatabase();
     const results = db.exec("SELECT * FROM books");
     if (results.length === 0) {
         bookList.innerHTML = "<p>No books found</p>";
@@ -101,7 +102,7 @@ async function loadDatabase() {
 
 document.addEventListener("DOMContentLoaded", async () => {
     const db = await loadDatabase();
-    renderBooks();
+    renderBooks(db);
 });
 
 document.getElementById("book-form").addEventListener("submit", async (event) => {
@@ -121,7 +122,10 @@ document.getElementById("book-form").addEventListener("submit", async (event) =>
     addBook(db, book);
     alert("Book added!");
 
-    renderBooks();
+    renderBooks(db);
 });
 
-document.getElementById("refresh").addEventListener("click", renderBooks);
+document.getElementById("refresh").addEventListener("click", async () => {
+    const db = await loadDatabase();
+    renderBooks(db);
+});
