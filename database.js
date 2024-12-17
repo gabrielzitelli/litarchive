@@ -55,3 +55,8 @@ export async function loadDatabase() {
         return initDatabase();
     }
 }
+
+export function deleteBook(db, id) {
+    db.run("DELETE FROM books WHERE id = ?;", [id]);
+    saveDatabase(db);
+}

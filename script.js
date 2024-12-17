@@ -12,7 +12,6 @@ export async function renderBooks() {
     }
 
     const table = document.createElement("table");
-
     const headerRow = `
         <tr>
             <th>Name</th>
@@ -21,13 +20,16 @@ export async function renderBooks() {
             <th>Published</th>
             <th>Finished</th>
             <th>Series</th>
+            <th>Actions</th>
         </tr>
     `;
     table.innerHTML = headerRow;
 
     books.forEach(row => {
         const [id, name, author, genres, published, finished, series] = row;
-        const rowHTML = `
+
+        const rowElement = document.createElement("tr");
+        rowElement.innerHTML = `
             <tr>
                 <td>${name}</td>
                 <td>${author}</td>
@@ -35,16 +37,32 @@ export async function renderBooks() {
                 <td>${published || "N/A"}</td>
                 <td>${finished || "N/A"}</td>
                 <td>${series || "N/A"}</td>
+                <td>
+                    <button class="delete-btn" data-id="${id}">Delete</button>
+                </td>
             </tr>
         `;
-        table.innerHTML += rowHTML;
+        table.appendChild(rowElement);
     });
 
     bookList.appendChild(table);
+
+    // Add event listener to each delete button
+    document.querySelectorAll(".delete-btn").forEach(button => {
+        button.addEventListener("click", async (event) => {
+            const id = event.target.dataset.id;
+            const db = await Database.loadDatabase();
+            Database.deleteBook(db, id);
+            alert("Book deleted!");
+            renderBooks();
+        });
+    });
 }
 
+// Event listener for rendering books on page load
 document.addEventListener("DOMContentLoaded", renderBooks);
 
+// Event listener for adding a book
 document.getElementById("book-form").addEventListener("submit", async (event) => {
     event.preventDefault();
 
@@ -65,4 +83,5 @@ document.getElementById("book-form").addEventListener("submit", async (event) =>
     renderBooks();
 });
 
+// Event listener for refreshing the book list
 document.getElementById("refresh").addEventListener("click", renderBooks);
