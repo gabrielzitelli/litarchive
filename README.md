@@ -1,7 +1,7 @@
 # 📚 Book Tracker
 
 A Progeressive Web Application (PWA) to track books you have read, are reading, or want to read.
-Access the app [here](gabrielzitelli.github.io/book-tracking/).
+Access the app [here](https://gabrielzitelli.github.io/book-tracking/).
 
 ## 🌟 Features
 - **Tracking**: Save details of books you have read, are reading, or want to read
