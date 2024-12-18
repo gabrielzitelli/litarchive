@@ -1,4 +1,4 @@
-import { loadDatabase, getBooks, addBook } from "./database.js";
+import { loadDatabase, getBooks, addBook, clearDatabase } from "./database.js";
 import { renderBooks } from "./uiManager.js";
 
 export async function exportData(exporter) {
@@ -44,6 +44,7 @@ export async function importData(file) {
         return;
     }
 
+    clearDatabase(db);
     books.forEach(book => addBook(db, book));
     alert("Data imported successfully!");
     renderBooks();

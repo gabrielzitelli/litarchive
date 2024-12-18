@@ -60,3 +60,25 @@ export function deleteBook(db, id) {
     db.run("DELETE FROM books WHERE id = ?;", [id]);
     saveDatabase(db);
 }
+
+export function clearDatabase(bd = null) {
+    if (!bd) {
+        localStorage.removeItem("bookTrackerDB");
+        return;
+    }
+
+    bd.run("DROP TABLE books;");
+    bd.run(`
+        CREATE TABLE IF NOT EXISTS books (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            author TEXT,
+            genres TEXT,
+            published TEXT,
+            finished TEXT,
+            series TEXT
+        );
+    `);
+
+    saveDatabase(bd);
+}

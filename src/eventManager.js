@@ -1,4 +1,4 @@
-import { loadDatabase, addBook, deleteBook } from "./database.js";
+import { loadDatabase, addBook, deleteBook, clearDatabase } from "./database.js";
 import { renderBooks } from "./uiManager.js";
 import { exportData, importData, JSONExporter, CSVExporter } from "./exportManager.js";
 
@@ -26,19 +26,35 @@ export function setUpFormListener() {
 // Event listener for deleting a book
 export function setUpDeleteListener() {
     document.getElementById("book-list").addEventListener("click", async (event) => {
-        if (event.target.classList.contains("delete-btn")) {
-            const id = event.target.getAttribute("data-id");
-            const db = await loadDatabase();
-            deleteBook(db, id);
-            alert("Book deleted!");
-            renderBooks();
+        if (!event.target.classList.contains("delete-btn")) {
+            return;
         }
+
+        if (!confirm("Are you sure you want to delete this book?")) {
+            return;
+        }
+
+        const id = event.target.getAttribute("data-id");
+        const db = await loadDatabase();
+        deleteBook(db, id);
+        alert("Book deleted!");
+        renderBooks();
     });
 }
 
 // Event listener for refreshing the book list
 export function setUpRefreshListener() {
     document.getElementById("refresh").addEventListener("click", renderBooks);
+}
+
+// Event listener for clearing the database
+export function setUpClearListener() {
+    document.getElementById("clear").addEventListener("click", async () => {
+        if (confirm("Are you sure you want to clear the database?")) {
+            clearDatabase();
+            renderBooks();
+        }
+    });
 }
 
 // Event listeners for exporting and importing data
