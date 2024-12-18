@@ -5,7 +5,9 @@ export async function renderBooks() {
     bookList.innerHTML = "";
 
     const db = await loadDatabase();
-    const books = getBooks(db);
+    const sortField = document.getElementById("sort-field").value;
+    const sortOrder = document.getElementById("sort-order").value;
+    const books = getBooks(db, sortField, sortOrder);
     if (books.length === 0) {
         bookList.innerHTML = "<p>No books found</p>";
         return;

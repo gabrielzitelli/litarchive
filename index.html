@@ -31,8 +31,26 @@
 
   <!-- Container to Display the List of Books -->
   <h2>Book List</h2>
-  <button id="refresh">Refresh</button>
-  <button id="clear">Clear</button>
+  <!-- Sorting Options -->
+  <div id="sorting-options">
+    <label for="sort-field">Sort by:</label>
+    <select id="sort-field">
+        <option value="name">Name</option>
+        <option value="author">Author</option>
+        <option value="genres">Genres</option>
+        <option value="published">Publish Date</option>
+        <option value="finished">Finish Date</option>
+        <option value="series">Series</option>
+    </select>
+
+    <label for="sort-order">Order:</label>
+    <select id="sort-order">
+        <option value="ASC">Ascending</option>
+        <option value="DESC">Descending</option>
+    </select>
+
+    <button id="clear">Clear</button>
+  </div>
   <div id="book-list"></div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>

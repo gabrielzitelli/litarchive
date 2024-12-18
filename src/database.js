@@ -11,8 +11,8 @@ async function initDatabase() {
             name TEXT NOT NULL,
             author TEXT,
             genres TEXT,
-            published TEXT,
-            finished TEXT,
+            published DATE,
+            finished DATE,
             series TEXT
         );
     `);
@@ -31,8 +31,21 @@ export function addBook(db, book) {
     saveDatabase(db);
 }
 
-export function getBooks(db) {
-    const books = db.exec("SELECT * FROM books;");
+export function getBooks(db, sortField = "id", sortOrder = "ASC") {
+    const validFields = ["id", "name", "author", "genres", "published", "finished", "series"];
+    if (!validFields.includes(sortField)) sortField = "id";
+    if (sortOrder !== "ASC" && sortOrder !== "DESC") sortOrder = "ASC";
+
+    const books = db.exec(`
+        SELECT *
+        FROM books
+        ORDER BY 
+            CASE
+                WHEN ${sortField} IS NULL OR ${sortField} = "" THEN 1
+                ELSE 0
+            END,
+            ${sortField} ${sortOrder};
+    `);
     return books[0] ? books[0].values : [];
 }
 
@@ -74,8 +87,8 @@ export function clearDatabase(bd = null) {
             name TEXT NOT NULL,
             author TEXT,
             genres TEXT,
-            published TEXT,
-            finished TEXT,
+            published DATE,
+            finished DATE,
             series TEXT
         );
     `);

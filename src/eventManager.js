@@ -42,9 +42,10 @@ export function setUpDeleteListener() {
     });
 }
 
-// Event listener for refreshing the book list
-export function setUpRefreshListener() {
-    document.getElementById("refresh").addEventListener("click", renderBooks);
+// Event listener for sorting the books
+export function setUpSortListener() {
+    document.getElementById("sort-field").addEventListener("change", renderBooks);
+    document.getElementById("sort-order").addEventListener("change", renderBooks);
 }
 
 // Event listener for clearing the database
