@@ -1,4 +1,55 @@
-export class Exporter {
+import { loadDatabase, getBooks, addBook } from "./database.js";
+import { renderBooks } from "./uiManager.js";
+
+export async function exportData(exporter) {
+    const db = await loadDatabase();
+    const books = getBooks(db);
+    if (books.length === 0) {
+        alert("No data to export");
+        return;
+    }
+
+    const data = books.map(row => {
+        const [id, name, author, genres, published, finished, series] = row;
+        return { id, name, author, genres, published, finished, series };
+    });
+
+    const exportedData = exporter.export(data);
+    const blob = new Blob([exportedData], { type: exporter.getType() });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = `book-tracker-backup.${exporter.getExtension()}`;
+    link.click();
+}
+
+export async function importData(file) {
+    const extension = file.name.split(".").pop();
+    let importer;
+    switch (extension) {
+        case "json":
+            importer = new JSONExporter();
+            break;
+        case "csv":
+            importer = new CSVExporter();
+            break;
+        default:
+            alert("Invalid file format");
+            return;
+    }
+
+    const data = await file.text();
+    const db = await loadDatabase();
+    const books = importer.import(data);
+    if (books.length === 0) {
+        return;
+    }
+
+    books.forEach(book => addBook(db, book));
+    alert("Data imported successfully!");
+    renderBooks();
+}
+
+class Exporter {
     export(data) {
         throw new Error("Method 'export' must be implemented")
     }
