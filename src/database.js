@@ -31,21 +31,53 @@ export function addBook(db, book) {
     saveDatabase(db);
 }
 
-export function getBooks(db, sortField = "id", sortOrder = "ASC") {
+export function getBooks(db, sortField = "id", sortOrder = "ASC", filters = {}) {
     const validFields = ["id", "name", "author", "genres", "published", "finished", "series"];
     if (!validFields.includes(sortField)) sortField = "id";
     if (sortOrder !== "ASC" && sortOrder !== "DESC") sortOrder = "ASC";
 
-    const books = db.exec(`
+    let query = `
         SELECT *
         FROM books
+        WHERE 1=1
+    `;
+    const params = [];
+
+    if (filters.name) {
+        query += " AND name LIKE ? ";
+        params.push(`%${filters.name}%`);
+    }
+    if (filters.author) {
+        query += " AND author LIKE ? ";
+        params.push(`%${filters.author}%`);
+    }
+    if (filters.genres) {
+        query += " AND genres LIKE ? ";
+        params.push(`%${filters.genres}%`);
+    }
+    if (filters.published) {
+        query += " AND published >= ? ";
+        params.push(filters.published);
+    }
+    if (filters.finished) {
+        query += " AND finished <= ? ";
+        params.push(filters.finished);
+    }
+    if (filters.series) {
+        query += " AND series LIKE ? ";
+        params.push(`%${filters.series}%`);
+    }
+
+    query += `
         ORDER BY 
             CASE
                 WHEN ${sortField} IS NULL OR ${sortField} = "" THEN 1
                 ELSE 0
             END,
             ${sortField} ${sortOrder};
-    `);
+    `;
+
+    const books = db.exec(query, params);
     return books[0] ? books[0].values : [];
 }
 

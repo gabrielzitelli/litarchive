@@ -48,13 +48,19 @@ export function setUpSortListener() {
     document.getElementById("sort-order").addEventListener("change", renderBooks);
 }
 
-// Event listener for clearing the database
-export function setUpClearListener() {
+// Event listener for refreshing and clearing the database and filters
+export function setUpControlListener() {
+    document.getElementById("refresh").addEventListener("click", renderBooks);
     document.getElementById("clear").addEventListener("click", async () => {
         if (confirm("Are you sure you want to clear the database?")) {
             clearDatabase();
             renderBooks();
         }
+    });
+
+    document.getElementById("clear-filters").addEventListener("click", () => {
+        document.getElementById("filter-form").reset();
+        renderBooks();
     });
 }
 

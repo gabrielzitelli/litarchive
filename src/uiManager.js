@@ -4,10 +4,20 @@ export async function renderBooks() {
     const bookList = document.getElementById("book-list");
     bookList.innerHTML = "";
 
-    const db = await loadDatabase();
     const sortField = document.getElementById("sort-field").value;
     const sortOrder = document.getElementById("sort-order").value;
-    const books = getBooks(db, sortField, sortOrder);
+
+    const filters = {
+        name: document.getElementById("name-filter").value.trim(),
+        author: document.getElementById("author-filter").value.trim(),
+        genres: document.getElementById("genres-filter").value.trim(),
+        published: document.getElementById("published-filter").value,
+        finished: document.getElementById("finished-filter").value,
+        series: document.getElementById("series-filter").value.trim()
+    };
+
+    const db = await loadDatabase();
+    const books = getBooks(db, sortField, sortOrder, filters);
     if (books.length === 0) {
         bookList.innerHTML = "<p>No books found</p>";
         return;
