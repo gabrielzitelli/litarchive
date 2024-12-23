@@ -1,4 +1,4 @@
-import { loadDatabase, getBooks } from "./database.js";
+import { loadDatabase, getBooks, deleteBook } from "./database.js";
 
 export async function renderBooks() {
     const bookList = document.getElementById("book-list");
@@ -23,39 +23,25 @@ export async function renderBooks() {
         return;
     }
 
-    const table = document.createElement("table");
-    const headerRow = `
-        <tr>
-            <th>Name</th>
-            <th>Author</th>
-            <th>Genres</th>
-            <th>Published</th>
-            <th>Finished</th>
-            <th>Series</th>
-            <th>Actions</th>
-        </tr>
-    `;
-    table.innerHTML = headerRow;
+    const template = document.getElementById("book-template");
 
-    books.forEach(row => {
-        const [id, name, author, genres, published, finished, series] = row;
+    books.forEach((book) => {
+        const clone = template.content.cloneNode(true);
+        const [id, name, author, genres, published, finished, series] = book;
 
-        const rowElement = document.createElement("tr");
-        rowElement.innerHTML = `
-            <tr>
-                <td>${name}</td>
-                <td>${author}</td>
-                <td>${genres}</td>
-                <td>${published || "N/A"}</td>
-                <td>${finished || "N/A"}</td>
-                <td>${series || "N/A"}</td>
-                <td>
-                    <button class="delete-btn" data-id="${id}">Delete</button>
-                </td>
-            </tr>
-        `;
-        table.appendChild(rowElement);
+        clone.querySelector(".title").textContent = name;
+        clone.querySelector(".author").textContent = author;
+        clone.querySelector(".genres").textContent = genres;
+        if (published) clone.querySelector(".published").textContent = published;
+        if (finished) clone.querySelector(".finished").textContent = finished;
+        if (series) clone.querySelector(".series").textContent = series;
+
+        /* const deleteButton = clone.querySelector(".delete-btn");
+        deleteButton.addEventListener("click", async () => {
+            deleteBook(db, id);
+            renderBooks();
+        }); */
+
+        bookList.appendChild(clone);
     });
-
-    bookList.appendChild(table);
 }
