@@ -2,7 +2,7 @@
 
 A Progeressive Web Application (PWA) to track books you have read, are reading, or want to read.
 
-Access the web app [here](https://gabrielzitelli.github.io/book-tracking/).
+Access the web app [here](https://gabrielzitelli.github.io/litarchive/).
 
 ## 🌟 Features
 - **Tracking**: Save details of books you have read, are reading, or want to read
