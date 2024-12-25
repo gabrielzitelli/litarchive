@@ -60,7 +60,12 @@ export function setUpControlListener() {
     });
 
     document.getElementById("clear-filters").addEventListener("click", () => {
-        document.getElementById("filter-form").reset();
+        document.getElementById("name-filter").value = "";
+        document.getElementById("author-filter").value = "";
+        document.getElementById("genres-filter").value = "";
+        document.getElementById("published-filter").value = "";
+        document.getElementById("finished-filter").value = "";
+        document.getElementById("series-filter").value = "";
         renderBooks();
     });
 }

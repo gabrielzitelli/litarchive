@@ -27,15 +27,29 @@
         </h2>
         <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionFeatures">
           <div class="accordion-body">
-            <form id="book-form">
-              <input type="text" id="name" placeholder="Book Name" required />
-              <input type="text" id="author" placeholder="Author" required />
-              <input type="text" id="genres" placeholder="Genres (comma-separated)" required />
-              <input type="date" id="published" placeholder="Published Date" />
-              <input type="date" id="finished" placeholder="Finished Read Date" />
-              <input type="text" id="series" placeholder="Series (if any)" />
-              <button class="btn btn-success btn btn-sm" type="submit">Add</button>
-            </form>
+            <div id="book-form" class="d-flex gap-2 flex-wrap">
+              <div class="col-md-6">
+                <input class="form-control" type="text" id="name" placeholder="Book Name" required />
+              </div>
+              <div class="col-md-4">
+                <input class="form-control" type="text" id="author" placeholder="Author" required />
+              </div>
+              <div class="col-md-5">
+                <input class="form-control" type="text" id="genres" placeholder="Genres (comma-separated)" required />
+              </div>
+              <div class="col-md-auto">
+                <input class="form-control" type="date" id="published" placeholder="Published Date" />
+              </div>
+              <div class="col-md-auto">
+                <input class="form-control" type="date" id="finished" placeholder="Finished Read Date" />
+              </div>
+              <div class="col-md-5">
+                <input class="form-control" type="text" id="series" placeholder="Series (if any)" />
+              </div>
+              <div>
+                <button class="btn btn-success" type="submit">Add</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -49,22 +63,46 @@
         </h2>
         <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
           <div class="accordion-body">
-            <form id="filter-form">
-              <label for="name-filter">Name:</label>
-              <input type="text" id="name-filter" placeholder="Name" />
-              <label for="author-filter">Author:</label>
-              <input type="text" id="author-filter" placeholder="Author" />
-              <label for="genres-filter">Genres:</label>
-              <input type="text" id="genres-filter" placeholder="Genres" />
-              <label for="published-filter">Published Date:</label>
-              <input type="date" id="published-filter" />
-              <label for="finished-filter">Finished Date:</label>
-              <input type="date" id="finished-filter" />
-              <label for="series-filter">Series:</label>
-              <input type="text" id="series-filter" placeholder="Series" />
+            <div id="filter-form" class="d-flex gap-2 flex-wrap">
+              <div class="col-md-6">
+                <div class="input-group">
+                  <span class="input-group-text">Title</span>
+                  <input type="text" class="form-control" id="name-filter" placeholder="Name" />
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="input-group">
+                  <span class="input-group-text">Author</span>
+                  <input type="text" class="form-control" id="author-filter" placeholder="Author" />
+                </div>
+              </div>
+              <div class="col-md-5">
+                <div class="input-group">
+                  <span class="input-group-text">Genres</span>
+                  <input type="text" class="form-control" id="genres-filter" placeholder="Genres" />
+                </div>
+              </div>
+              <div class="col-md-auto">
+                <div class="input-group">
+                  <span class="input-group-text">Published Date</span>
+                  <input type="date" class="form-control" id="published-filter" />
+                </div>
+              </div>
+              <div class="col-md-auto">
+                <div class="input-group">
+                  <span class="input-group-text">Finished Date</span>
+                  <input type="date" class="form-control" id="finished-filter" />
+                </div>
+              </div>
+              <div class="col-md-5">
+                <div class="input-group">
+                  <span class="input-group-text">Series</span>
+                  <input type="text" class="form-control" id="series-filter" placeholder="Series" />
+                </div>
+              </div>
               
-              <button class="btn btn-secondary btn-sm" id="clear-filters">Clear Filters</button>
-            </form>
+              <button class="btn btn-secondary" id="clear-filters">Clear Filters</button>
+            </div>
           </div>
         </div>
       </div>
@@ -78,9 +116,11 @@
         </h2>
         <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
           <div class="accordion-body">
-            <button class="btn btn-secondary btn-sm" id="export-json">Export as JSON</button>
-            <button class="btn btn-secondary btn-sm" id="export-csv">Export as CSV</button>
-            <input type="file" id="file-input" accept=".json,.csv" />
+            <div class="d-flex gap-2 align-items-center">
+              <button class="btn btn-secondary btn-sm" id="export-json">Export as JSON</button>
+              <button class="btn btn-secondary btn-sm" id="export-csv">Export as CSV</button>
+              <input type="file" class="form-control" id="file-input" accept=".json,.csv" />
+            </div>
           </div>
         </div>
       </div>
