@@ -80,3 +80,32 @@ export function setUpExportImportListeners() {
         renderBooks();
     });
 }
+
+// Event listener for toggle light/dark mode
+export function setUpThemeListener() {
+    const body = document.body;
+    const theme = document.getElementById("theme-toggle");
+
+    if (localStorage.getItem("theme") === "dark") {
+        body.classList.add("dark-mode");
+        theme.textContent = "☀️";
+        theme.classList.remove("btn-dark");
+        theme.classList.add("btn-light");
+    }
+
+    theme.addEventListener("click", () => {
+        body.classList.toggle("dark-mode");
+
+        if (body.classList.contains("dark-mode")) {
+            localStorage.setItem("theme", "dark");
+            theme.textContent = "☀️";
+            theme.classList.remove("btn-dark");
+            theme.classList.add("btn-light");
+        } else {
+            localStorage.setItem("theme", "light");
+            theme.textContent = "🌙";
+            theme.classList.remove("btn-light");
+            theme.classList.add("btn-dark");
+        }
+    });
+}

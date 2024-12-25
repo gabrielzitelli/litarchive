@@ -1,5 +1,6 @@
 import { renderBooks } from './uiManager.js';
-import { setUpFormListener, setUpDeleteListener, setUpSortListener, setUpExportImportListeners, setUpControlListener } from './eventManager.js';
+import { setUpFormListener, setUpDeleteListener, setUpSortListener, setUpExportImportListeners,
+     setUpControlListener, setUpThemeListener } from './eventManager.js';
 
 document.addEventListener("DOMContentLoaded", () => {
     renderBooks();
@@ -8,4 +9,5 @@ document.addEventListener("DOMContentLoaded", () => {
     setUpSortListener();
     setUpControlListener();
     setUpExportImportListeners();
+    setUpThemeListener();
 });
