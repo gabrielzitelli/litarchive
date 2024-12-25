@@ -4,9 +4,7 @@ import { exportData, importData, JSONExporter, CSVExporter } from "./exportManag
 
 // Event listener for adding a book
 export function setUpFormListener() {
-    document.getElementById("book-form").addEventListener("submit", async (event) => {
-        event.preventDefault();
-
+    document.getElementById("add-book").addEventListener("click", async () => {
         const db = await loadDatabase();
         const book = {
             name: document.getElementById("name").value,
