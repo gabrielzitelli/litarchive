@@ -34,7 +34,8 @@ export function setUpDeleteListener() {
             return;
         }
 
-        const id = event.target.getAttribute("data-id");
+        const bookEntry = event.target.closest(".book-entry");
+        const id = parseInt(bookEntry.getAttribute("data-id"), 10);
         const db = await loadDatabase();
         deleteBook(db, id);
         alert("Book deleted!");

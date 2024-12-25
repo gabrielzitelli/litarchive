@@ -6,6 +6,113 @@ body {
     box-sizing: border-box;
 }
 
+.banner {
+    background-color: #031546;
+    color: white;
+    font-size: 1.5em;
+    padding: 1rem 1rem;
+    margin-bottom: 1.5rem;
+    z-index: 1000;
+}
+
+.accordion {
+    padding-bottom: 0.5rem;
+    width: 100%;
+    text-align: left;
+    border-radius: 8px;
+}
+
+.accordion-button.collapsed {
+    background-color: #d6e3eb;
+    color: #333;
+}
+
+.accordion-button.collapsed:hover {
+    background-color: #a6b0b6;
+    color: #000;
+}
+
+.options-display {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-bottom: 0.5rem;
+}
+
+.book-card {
+    display: flex;
+    flex-direction: column;
+    background-color: #c5f1f1;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    margin: 0rem;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.book-card .container {
+    display: flex;
+    flex-direction: column;
+    padding: 0rem;
+}
+
+.book-card .row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0rem;
+    margin: 0rem;
+}
+
+.book-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 6px 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+.book-card .title {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 0.1rem;
+}
+
+.book-card .author {
+    font-size: 1em;
+    color: #666;
+    font-weight: semibold;
+    margin-bottom: 0.1rem;
+}
+
+.book-card .genres {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 0.1rem;
+}
+
+.book-card .published {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 0.1rem;
+}
+
+.book-card .series {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 0.1rem;
+}
+
+.book-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 0.1rem;
+    min-width: 75px;
+    min-height: 75px;
+    max-width: 100px;
+    max-height: 100px;
+}
+
 .text-wrap {
     overflow-wrap: break-word;
 }

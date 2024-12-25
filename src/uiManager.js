@@ -1,4 +1,4 @@
-import { loadDatabase, getBooks, deleteBook } from "./database.js";
+import { loadDatabase, getBooks } from "./database.js";
 
 export async function renderBooks() {
     const bookList = document.getElementById("book-list");
@@ -29,18 +29,13 @@ export async function renderBooks() {
         const clone = template.content.cloneNode(true);
         const [id, name, author, genres, published, finished, series] = book;
 
+        clone.querySelector(".book-entry").setAttribute("data-id", id);
         clone.querySelector(".title").textContent = name;
         clone.querySelector(".author").textContent = author;
         clone.querySelector(".genres").textContent = genres;
         if (published) clone.querySelector(".published").textContent = published;
         if (finished) clone.querySelector(".finished").textContent = finished;
         if (series) clone.querySelector(".series").textContent = series;
-
-        /* const deleteButton = clone.querySelector(".delete-btn");
-        deleteButton.addEventListener("click", async () => {
-            deleteBook(db, id);
-            renderBooks();
-        }); */
 
         bookList.appendChild(clone);
     });
