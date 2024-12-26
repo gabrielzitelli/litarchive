@@ -27,7 +27,7 @@
         </h2>
         <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionFeatures">
           <div class="accordion-body">
-            <div id="book-form" class="d-flex gap-2 flex-wrap">
+            <form id="book-form" class="d-flex gap-2 flex-wrap">
               <div class="col-md-6">
                 <input class="form-control" type="text" id="name" placeholder="Book Name" required />
               </div>
@@ -38,18 +38,28 @@
                 <input class="form-control" type="text" id="genres" placeholder="Genres (comma-separated)" required />
               </div>
               <div class="col-md-auto">
-                <input class="form-control" type="date" id="published" placeholder="Published Date" />
-              </div>
-              <div class="col-md-auto">
-                <input class="form-control" type="date" id="finished" placeholder="Finished Read Date" />
+                <div class="input-group">
+                  <span class="input-group-text">Published Date</span>
+                  <input class="form-control" type="date" id="published" placeholder="Published Date" />
+                </div>
               </div>
               <div class="col-md-5">
                 <input class="form-control" type="text" id="series" placeholder="Series (if any)" />
               </div>
+              <div class="col-md-4">
+                <select class="form-select" id="status">
+                  <option value="wished">Wished</option>
+                  <option value="finished">Finished</option>
+                  <option value="reading">Reading</option>
+                </select>
+              </div>
+              <div class="col-md-auto">
+                <input class="form-control" type="date" id="finished" placeholder="Finished Read Date" />
+              </div>
               <div>
                 <button class="btn btn-success" id="add-book">Add</button>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>
@@ -88,16 +98,24 @@
                   <input type="date" class="form-control" id="published-filter" />
                 </div>
               </div>
-              <div class="col-md-auto">
-                <div class="input-group">
-                  <span class="input-group-text">Finished Date</span>
-                  <input type="date" class="form-control" id="finished-filter" />
-                </div>
-              </div>
               <div class="col-md-5">
                 <div class="input-group">
                   <span class="input-group-text">Series</span>
                   <input type="text" class="form-control" id="series-filter" placeholder="Series" />
+                </div>
+              </div>
+              <div class="col-md-2">
+                <select class="form-select" id="status-filter">
+                  <option value="">All</option>
+                  <option value="wished">Wished</option>
+                  <option value="finished">Finished</option>
+                  <option value="reading">Reading</option>
+                </select>
+              </div>
+              <div class="col-md-auto">
+                <div class="input-group">
+                  <span class="input-group-text">Finished Date</span>
+                  <input type="date" class="form-control" id="finished-filter" />
                 </div>
               </div>
               
@@ -142,8 +160,8 @@
           <option value="author">Author</option>
           <option value="genres">Genres</option>
           <option value="published">Publish Date</option>
-          <option value="finished">Finish Date</option>
           <option value="series">Series</option>
+          <option value="status">Status</option>
         </select>
         <label for="sort-field">Sort by</label>
       </div>
@@ -193,10 +211,10 @@
         </div>
   
         <!-- Book's status -->
-        <div class="col-3 col-md-2 align-self-center text-start">
+        <div id="book-status" class="col-3 col-md-2 align-self-center text-start">
           <div class="position-relative d-inline-block">
-            <img src="assets/icons/green-circle.png" alt="Status" class="img-fluid rounded"/>
-            <div class="position-absolute top-50 start-50 translate-middle text-white fw-bold finished"></div>
+            <img src="assets/icons/green-circle.png" alt="Status" class="img-fluid rounded status-image"/>
+            <div class="position-absolute top-50 start-50 translate-middle text-white fw-bold status-text"></div>
           </div>
         </div>
   
@@ -205,6 +223,26 @@
           <button class="btn btn-danger btn-sm delete-btn">Delete</button>
         </div>
       </div>
+    </div>
+  </template>
+
+  <!-- Finished template -->
+  <template id="status-finished">
+  </template>
+
+  <!-- Reading template -->
+  <template id="status-reading">
+    <div class="position-relative d-inline-block">
+      <img src="assets/icons/red-circle.png" alt="Status" class="img-fluid rounded"/>
+      <div class="position-absolute top-50 start-50 translate-middle text-white fw-bold reading">Reading</div>
+    </div>
+  </template>
+
+  <!-- To Read template -->
+  <template id="status-wished">
+    <div class="position-relative d-inline-block">
+      <img src="assets/icons/yellow-circle.png" alt="Status" class="img-fluid rounded"/>
+      <div class="position-absolute top-50 start-50 translate-middle text-white fw-bold wished">Wish</div>
     </div>
   </template>
 

@@ -10,8 +10,8 @@ export async function exportData(exporter) {
     }
 
     const data = books.map(row => {
-        const [id, name, author, genres, published, finished, series] = row;
-        return { id, name, author, genres, published, finished, series };
+        const [id, name, author, genres, published, series, status, finished] = row;
+        return { id, name, author, genres, published, series, status, finished };
     });
 
     const exportedData = exporter.export(data);

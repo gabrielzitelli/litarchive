@@ -12,8 +12,9 @@ async function initDatabase() {
             author TEXT,
             genres TEXT,
             published DATE,
-            finished DATE,
-            series TEXT
+            series TEXT,
+            status TEXT DEFAULT 'wished',
+            finished DATE
         );
     `);
 
@@ -21,18 +22,18 @@ async function initDatabase() {
 }
 
 export function addBook(db, book) {
-    const { name, author, genres, published, finished, series } = book;
+    const { name, author, genres, published, series, status, finished } = book;
 
     db.run(`
-        INSERT INTO books (name, author, genres, published, finished, series)
-        VALUES (?, ?, ?, ?, ?, ?);
-    `, [name, author, genres, published, finished, series]);
+        INSERT INTO books (name, author, genres, published, series, status, finished)
+        VALUES (?, ?, ?, ?, ?, ?, ?);
+    `, [name, author, genres, published, series, status, finished]);
 
     saveDatabase(db);
 }
 
 export function getBooks(db, sortField = "id", sortOrder = "ASC", filters = {}) {
-    const validFields = ["id", "name", "author", "genres", "published", "finished", "series"];
+    const validFields = ["id", "name", "author", "genres", "published", "series", "status", "finished"];
     if (!validFields.includes(sortField)) sortField = "id";
     if (sortOrder !== "ASC" && sortOrder !== "DESC") sortOrder = "ASC";
 
@@ -59,13 +60,17 @@ export function getBooks(db, sortField = "id", sortOrder = "ASC", filters = {}) 
         query += " AND published >= ? ";
         params.push(filters.published);
     }
-    if (filters.finished) {
-        query += " AND finished <= ? ";
-        params.push(filters.finished);
-    }
     if (filters.series) {
         query += " AND series LIKE ? ";
         params.push(`%${filters.series}%`);
+    }
+    if (filters.status && filters.status !== "") {
+        query += " AND status = ? ";
+        params.push(filters.status);
+    }
+    if (filters.finished) {
+        query += " AND finished <= ? ";
+        params.push(filters.finished);
     }
 
     query += `
@@ -120,8 +125,9 @@ export function clearDatabase(bd = null) {
             author TEXT,
             genres TEXT,
             published DATE,
-            finished DATE,
-            series TEXT
+            series TEXT,
+            status TEXT DEFAULT 'wished',
+            finished DATE
         );
     `);
 

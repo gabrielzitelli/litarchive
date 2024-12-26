@@ -4,6 +4,25 @@ import { exportData, importData, JSONExporter, CSVExporter } from "./exportManag
 
 // Event listener for adding a book
 export function setUpFormListener() {
+    const status = document.getElementById("status").value;
+    const finished = document.getElementById("finished");
+
+    if (status !== "finished") {
+        finished.disabled = true;
+    }
+
+    document.getElementById("status").addEventListener("change", function () {
+        const status = this.value;
+        const finished = document.getElementById("finished");
+
+        if (status === "finished") {
+            finished.disabled = false;
+        } else {
+            finished.disabled = true;
+            finished.value = "";
+        }
+    });
+
     document.getElementById("add-book").addEventListener("click", async () => {
         const db = await loadDatabase();
         const book = {
@@ -11,9 +30,16 @@ export function setUpFormListener() {
             author: document.getElementById("author").value,
             genres: document.getElementById("genres").value,
             published: document.getElementById("published").value,
-            finished: document.getElementById("finished").value,
-            series: document.getElementById("series").value
+            series: document.getElementById("series").value,
+            status: document.getElementById("status").value,
         };
+        
+        book.finished = (book.status === "finished") ? document.getElementById("finished").value : "";
+
+        if (!book.name || !book.author || !book.genres) {
+            alert("Please fill out the required fields");
+            return;
+        }
 
         addBook(db, book);
         alert("Book added!");
@@ -57,13 +83,33 @@ export function setUpControlListener() {
         }
     });
 
+    const status = document.getElementById("status-filter").value;
+    const finished = document.getElementById("finished-filter");
+
+    if (status !== "" && status !== "finished") {
+        finished.disabled = true;
+    }
+
+    document.getElementById("status-filter").addEventListener("change", function () {
+        const status = this.value;
+        const finished = document.getElementById("finished-filter");
+
+        if (status === "" || status === "finished") {
+            finished.disabled = false;
+            finished.value = "";
+        } else {
+            finished.disabled = true;
+        }
+    });
+
     document.getElementById("clear-filters").addEventListener("click", () => {
         document.getElementById("name-filter").value = "";
         document.getElementById("author-filter").value = "";
         document.getElementById("genres-filter").value = "";
         document.getElementById("published-filter").value = "";
-        document.getElementById("finished-filter").value = "";
         document.getElementById("series-filter").value = "";
+        document.getElementById("status-filter").value = "";
+        document.getElementById("finished-filter").value = "";
         renderBooks();
     });
 }
